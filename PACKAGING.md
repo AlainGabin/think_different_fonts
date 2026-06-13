@@ -30,7 +30,7 @@ The installer bundles:
 - `fonts\FontMod64.dll` as `C:\ProgramData\MacFontRenderer\Hooks\FontMod.dll`
 - `fonts\FontMod.yaml.txt` as `C:\ProgramData\MacFontRenderer\FontMod.yaml`
 
-The bundled Apple SF/New York fonts and FontMod hook DLL require explicit licensing and security review before public distribution.
+This research build includes bundled font assets and a FontMod hook DLL so the installer can run without extra manual setup.
 
 ## Recommended release flow
 

@@ -58,15 +58,3 @@ Filename: "{app}\MacFontRenderer.exe"; Description: "Launch MacFontRenderer"; Fl
 [UninstallRun]
 Filename: "sc.exe"; Parameters: "stop MacFontRendererService"; Flags: runhidden waituntilterminated; RunOnceId: "StopService"
 Filename: "{app}\Service\MacFontRenderer.Service.exe"; Parameters: "uninstall"; Flags: runhidden waituntilterminated; RunOnceId: "UninstallService"
-
-[Code]
-function InitializeSetup(): Boolean;
-begin
-  Result := True;
-  MsgBox(
-    'This installer bundles Apple SF/New York font files and a FontMod hook DLL because the project owner explicitly accepted that licensing/security risk.' + #13#10#13#10 +
-    'Install only on systems where you are authorized to use these assets.',
-    mbInformation,
-    MB_OK
-  );
-end;
