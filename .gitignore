@@ -1,0 +1,49 @@
+# Build outputs
+bin/
+obj/
+**/bin/
+**/obj/
+artifacts/
+dist/
+
+# User and IDE state
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs, diagnostics, and crash dumps
+*.log
+*.dmp
+*.mdmp
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# NuGet and local package artifacts
+*.nupkg
+packages/
+
+# Environment and local config
+.env
+.env.*
+*.local
+appsettings.Development.json
+secrets.json
+
+# Certificates, keys, and signing material
+*.pfx
+*.p12
+*.pem
+*.key
+*.crt
+*.cer
+*.snk
+
+# OS noise
+Thumbs.db
+Desktop.ini
+.DS_Store

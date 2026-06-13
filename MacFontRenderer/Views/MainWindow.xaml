@@ -1,0 +1,203 @@
+<Window x:Class="MacFontRenderer.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MacFontRenderer"
+        Height="620"
+        Width="520"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None">
+    
+    <Window.Resources>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#F5F5F7"/>
+        <SolidColorBrush x:Key="CardBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#1D1D1D"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#86868B"/>
+        <SolidColorBrush x:Key="AccentBlue" Color="#0071E3"/>
+        <SolidColorBrush x:Key="WarningYellow" Color="#F5A623"/>
+        <SolidColorBrush x:Key="BorderLight" Color="#E5E5EA"/>
+
+        <!-- Button Styles -->
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="500"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8"
+                                x:Name="border">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ComboBox Style -->
+        <Style x:Key="ModernComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#1D1D1D"/>
+            <Setter Property="BorderBrush" Value="#E5E5EA"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <!-- Slider Style -->
+        <Style x:Key="ModernSliderStyle" TargetType="Slider">
+            <Setter Property="Height" Value="4"/>
+            <Setter Property="Background" Value="#E5E5EA"/>
+            <Setter Property="Foreground" Value="#0071E3"/>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#F5F5F7" CornerRadius="16">
+        <Grid>
+            <!-- Main Content -->
+            <StackPanel Margin="32" Orientation="Vertical">
+                
+                <!-- Header Section -->
+                <StackPanel Orientation="Vertical" Margin="0,0,0,20">
+                    <TextBlock FontSize="24" FontWeight="600" Foreground="#1D1D1D">
+                        Font Renderer
+                    </TextBlock>
+                    <TextBlock FontSize="13" Foreground="#86868B" TextWrapping="Wrap" Margin="0,8,0,0">
+                        Optimize Windows typography to match macOS on high-DPI displays
+                    </TextBlock>
+                </StackPanel>
+
+                <!-- Status Card -->
+                <Border Background="White" CornerRadius="12" Padding="16" BorderBrush="#E5E5EA" BorderThickness="1" Margin="0,0,0,20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Ellipse Grid.Column="0" Width="12" Height="12" Fill="#34C759" 
+                                 x:Name="StatusIndicator" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Margin="12,0,0,0" Orientation="Vertical">
+                            <TextBlock FontSize="12" FontWeight="500" Foreground="#1D1D1D">System Status</TextBlock>
+                            <TextBlock FontSize="11" Foreground="#86868B" x:Name="StatusText" Margin="0,2,0,0">
+                                Checking...
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Settings Section -->
+                <StackPanel Orientation="Vertical">
+                    
+                    <!-- Font Selection -->
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,14">
+                        <TextBlock FontSize="12" FontWeight="500" Foreground="#1D1D1D">
+                            Target Font Family
+                        </TextBlock>
+                        <ComboBox Name="FontComboBox" Style="{StaticResource ModernComboBoxStyle}" Margin="0,6,0,0">
+                            <ComboBoxItem>SF Pro Text (Recommended)</ComboBoxItem>
+                            <ComboBoxItem>Inter (Open Source)</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Gamma Slider -->
+                    <StackPanel Orientation="Vertical">
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" FontSize="12" FontWeight="500" Foreground="#1D1D1D">
+                                Font Weight
+                            </TextBlock>
+                            <TextBlock Grid.Column="1" FontSize="12" Foreground="#0071E3" FontWeight="500">
+                                <Run Text="γ = "/>
+                                <Run x:Name="GammaValue" Text="1000"/>
+                            </TextBlock>
+                        </Grid>
+                        
+                        <Slider Name="GammaSlider" Style="{StaticResource ModernSliderStyle}"
+                                Minimum="336" Maximum="1000" Value="1000" 
+                                TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,0,0,8"/>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" FontSize="10" Foreground="#86868B">
+                                336 (Heavy)
+                            </TextBlock>
+                            <TextBlock Grid.Column="1" FontSize="10" Foreground="#86868B" TextAlignment="Right">
+                                1000 (Standard)
+                            </TextBlock>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Action Buttons -->
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                    <Button Name="ApplyButton" 
+                            Style="{StaticResource ModernButtonStyle}"
+                            Background="#0071E3"
+                            Click="OnApplyClick"
+                            Margin="0,0,10,0">
+                        Apply Changes
+                    </Button>
+                    <Button Name="RestoreButton" 
+                            Style="{StaticResource ModernButtonStyle}"
+                            Background="#FF3B30"
+                            Click="OnRestoreClick">
+                        Restore Defaults
+                    </Button>
+                </StackPanel>
+
+                <!-- Warning Box -->
+                <Border Background="#FFF3CD" CornerRadius="10" Padding="12" BorderBrush="#FFE8A1" BorderThickness="1" Margin="0,20,0,0">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock FontSize="11" FontWeight="600" Foreground="#92611D">
+                            ⚠ Important
+                        </TextBlock>
+                        <TextBlock FontSize="10" Foreground="#856A1A" TextWrapping="Wrap" Margin="0,6,0,0">
+                            System restart recommended. Changes are reversible with "Restore Defaults".
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- Log Output -->
+                <StackPanel Orientation="Vertical" Margin="0,20,0,0">
+                    <TextBlock FontSize="11" FontWeight="500" Foreground="#1D1D1D" Margin="0,0,0,6">
+                        Activity Log
+                    </TextBlock>
+                    <TextBox Name="LogOutput" 
+                             Height="110"
+                             IsReadOnly="True"
+                             Background="White"
+                             Foreground="#1D1D1D"
+                             VerticalScrollBarVisibility="Auto"
+                             Padding="10"
+                             FontFamily="SF Mono, Menlo, Consolas"
+                             FontSize="10"
+                             BorderBrush="#E5E5EA"
+                             BorderThickness="1"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
