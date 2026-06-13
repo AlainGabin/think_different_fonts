@@ -42,7 +42,6 @@ Before using it:
 - Keep the installer available so you can uninstall cleanly.
 - Use the app's restore option before uninstalling if you applied font changes.
 
-The project currently bundles Apple SF/New York font files and a `FontMod` hook DLL because the project owner explicitly accepted that licensing and security risk. Review those assets before redistributing publicly.
 
 ## System Requirements
 
@@ -93,7 +92,7 @@ The uninstaller stops and removes the `MacFontRendererService` service.
 Prerequisites:
 
 - .NET 8 SDK
-- Inno Setup 6, only required for building the installer
+
 
 Build the app and service:
 
@@ -115,53 +114,3 @@ dist\installer\MacFontRenderer-Setup-1.0.0.exe
 dist\MacFontRenderer-portable-1.0.0-win-x64.zip
 dist\SHA256SUMS.txt
 ```
-
-Do not commit `dist\`, `artifacts\`, `bin\`, or `obj\`. They are generated build outputs and are ignored by `.gitignore`.
-
-## GitHub Release Process
-
-Commit source and packaging files only:
-
-```powershell
-git add .gitignore README.md PACKAGING.md installer scripts MacFontRenderer MacFontRenderer.Service fonts
-git commit -m "Add installer packaging and release README"
-```
-
-Then upload the generated files from `dist\` to a GitHub Release:
-
-```text
-MacFontRenderer-Setup-1.0.0.exe
-MacFontRenderer-portable-1.0.0-win-x64.zip
-SHA256SUMS.txt
-```
-
-## Security and Signing
-
-The current installer is not code-signed. Windows SmartScreen may warn users.
-
-For a public production release, sign:
-
-- `MacFontRenderer.exe`
-- `MacFontRenderer.Service.exe`
-- `MacFontRenderer-Setup-1.0.0.exe`
-- any DLLs shipped with the installer
-
-Use an Authenticode code signing certificate and publish SHA256 checksums with each release.
-
-## Repository Notes
-
-The `.gitignore` file is intentionally committed. It prevents generated installers, build outputs, local configs, keys, logs, and temporary files from being added to Git history.
-
-Generated release artifacts belong in GitHub Releases, not in the repository.
-
-## License and Asset Notice
-
-Code licensing should be finalized before public distribution.
-
-Bundled assets may have separate licenses:
-
-- Inter is distributed under the SIL Open Font License.
-- Apple SF/New York fonts are proprietary Apple assets.
-- `FontMod64.dll` should be reviewed, verified, and signed before broad distribution.
-
-Do not redistribute assets unless you have the right to do so.
